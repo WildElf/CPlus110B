@@ -114,3 +114,20 @@ void swap(int* first, int* second)
 	*first = *second;
 	*second = temp;
 }
+
+/* Sample Output
+[ezimmer2@hills hw06]$ a.out 
+X is 99 at address 0x7ffcad61d968
+P1 is storing 99 at 0x7ffcad61d968
+
+P2 is holding x with 0 and now it's holding y with 99
+
+a[0]'s address: 0x7ffcad61d950 with Value: 0
+a[1]'s address: 0x7ffcad61d954 with Value: 99
+
+a[0]: 99
+a[1]: 0
+X is now 99, and Y is 0.
+a[0] is now 0, and a[1] is 99.
+[ezimmer2@hills hw06]$ 
+*/
