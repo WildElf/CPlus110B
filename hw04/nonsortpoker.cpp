@@ -234,8 +234,9 @@ bool containsThreeOfaKind (int hand[])
 // *****************************************
 bool containsStraight (int hand[])
 {
-	int straight = 0;
-	int count = 0, lowest = hand[0];
+	bool straight1 = false, straight2 = false, 
+		straight3 = false, straight4 = false;
+	int lowest = hand[0];
 	
 	for (int i = 1; i < HAND_SIZE; i++)
 	{
@@ -243,21 +244,21 @@ bool containsStraight (int hand[])
 			lowest = hand[i];
 	}
 	
-	while (straight < 4 && count < HAND_SIZE)
+	for (int i = 0; i < HAND_SIZE; i++)
 	{
-		if (hand[count] == lowest +1)
-			straight++;
-		else if (hand[count] == lowest +2)
-			straight++;
-		else if (hand[count] == lowest +3)
-			straight++;
-		else if (hand[count] == lowest +4)
-			straight++;
-				
-		count++;			
+
+		if (lowest == hand[i] - 1)
+			straight1 = true;
+		else if (lowest == hand[i] - 2)
+			straight2 = true;
+		else if (lowest == hand[i] - 3)
+			straight3 = true;
+		else if (lowest == hand[i] - 4)
+			straight4 = true;
+										
 	}
 	
-	if (straight == 4)
+	if (straight1 && straight2 && straight3 && straight4)
 		return true;
 	else
 		return false;
@@ -273,25 +274,31 @@ bool containsFullHouse (int hand[])
 	bool house = false;
 
 	// three of a kind check
-	int pair = -1, count = 0;
+	int pair = -1, triple = -1, count = 0;
 	
-	while (!match && count < HAND_SIZE -1)
+	while (!match && count < HAND_SIZE - 1)
 	{
 		// determine if there's a pair
-		// determine if there's 3 of a kind
-		// ensure the pair and 3oK don't match
-
-		for (int i = count+1; i < HAND_SIZE; i++)
+		for (int i = count + 1; i < HAND_SIZE; i++)
 		{
-			// confirm a pair and save first match value
-			if (hand[i] == hand[count] && pair < 0)
-				pair = hand[count];
-			else if (hand[i] == hand[count] && hand[i] == pair)
+			if (hand[count] == hand[i] && hand[count] == hand[pair])
+			{
 				house = true;
+				cout << "Full house found 3 of a kind\n";
+				triple = count;
+			}
+			else if ( hand[count] == hand[i] )
+			{
+				pair = count;
+				cout << "Full house found a pair\n";
+			}
 
-			if (!house && pair > 0)
-				full = true;
 		}
+		
+		cout << hand[pair] << " <- pair | triple -> " << hand[triple] << endl;
+		// ensure the pair and 3oK don't match
+		if (hand[pair] != hand[triple])
+			full = true;
 		
 		count++;
 	}
@@ -307,13 +314,25 @@ bool containsFullHouse (int hand[])
 bool containsFourOfaKind (int hand[])
 {
 	bool match = false;
+	int pair = -1, triple = -1, count = 0;
 	
-	for (int i = 0; i < (HAND_SIZE - 3); i++)
+	while (!match && count < HAND_SIZE -1)
 	{
-		if (hand[i] == hand[i+1] && hand[i+1] == hand[i+2] 
-		&& hand[i+2] == hand[i+3])
-			match = true;
-	}		
+		
+		for (int i = count + 1; i < HAND_SIZE; i++)
+		{
+			// checks for 3 cards of equal value
+			if (hand[i] == hand[count] && pair < 0)
+				pair = hand[count];
+			else if (hand[i] == hand[count] && hand[i] == pair && triple < 0)
+				triple = hand[count];
+			else if (hand [i] == hand[count] && hand[i] == triple)
+				match = true;
+		}
+		
+		count++;
+	}
+	
 	return match;
 }
 
