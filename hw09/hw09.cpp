@@ -124,10 +124,10 @@ void sortData(winRecord* standings, int size)
 // **************************
 void displayData(winRecord* standings, int size)
 {
-	cout << "League Standings\n";
+	cout << "\n****************\nLeague Standings\n****************\n";
 
 	for (int i = 0; i < size; i++)
-		cout << standings[i].name << " wins: " << standings[i].wins << endl;
+		cout << "Wins for " << standings[i].name << ": " << standings[i].wins << endl;
 		
 }
 
@@ -160,8 +160,62 @@ void cleanData(winRecord* standings, int size)
 	delete [] standings;
 	standings = NULL;
 
-}
+} */
 
 /* sample output
+Silica:hw09 ez$ a.out 
+How many teams are in the league? 2
+Enter Team #1's name: NY Giants
+Enter Team #1's number of wins: 0
+Enter Team #2's name: SF Giants
+Enter Team #2's number of wins: 75
+
+****************
+League Standings
+****************
+Wins for SF Giants: 75
+Wins for NY Giants: 0
+
+Silica:hw09 ez$ a.out 
+How many teams are in the league? 2
+Enter Team #1's name: NY Giants
+Enter Team #1's number of wins: 0
+Enter Team #2's name: SF Giants
+Enter Team #2's number of wins: 75
+
+****************
+League Standings
+****************
+Wins for SF Giants: 75
+Wins for NY Giants: 0
+
+
+Silica:hw09 ez$ a.out 
+How many teams are in the league? 7
+Enter Team #1's name: Atomics
+Enter Team #1's number of wins: 1
+Enter Team #2's name: Neutrons
+Enter Team #2's number of wins: 15
+Enter Team #3's name: Radioactives
+Enter Team #3's number of wins: 42
+Enter Team #4's name: Electrons
+Enter Team #4's number of wins: 13
+Enter Team #5's name: Strong Forces
+Enter Team #5's number of wins: 78
+Enter Team #6's name: Weak Forces
+Enter Team #6's number of wins: 79
+Enter Team #7's name: Senators
+Enter Team #7's number of wins: 8
+
+****************
+League Standings
+****************
+Wins for Weak Forces: 79
+Wins for Strong Forces: 78
+Wins for Radioactives: 42
+Wins for Neutrons: 15
+Wins for Electrons: 13
+Wins for Senators: 8
+Wins for Atomics: 1
 
 */
