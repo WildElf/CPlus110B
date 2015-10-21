@@ -25,3 +25,5 @@ hw04/pokerhand
 hw07/tasks
 hw09/simple-hw09.cpp
 hw01/asterisks
+*.o
+
