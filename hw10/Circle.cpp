@@ -49,9 +49,11 @@ bool Circle::containsPoint(double xValue, double yValue)
 {
 	double side1 = x - xValue;
 	double side2 = y - yValue;
-	double distance = sqrt ( (pow (side1, 2.0)) + (pow (side2, 2.0)) );
+	double distance = sqrt ( (side1 * side1) + (side2 * side2) );
 	
-	if (distance < radius)
+	cout << "The point is " << distance << " from the circle center.\n";
+	
+	if (distance <= radius)
 		return true;
 	else
 		return false;

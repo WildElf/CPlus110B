@@ -5,10 +5,14 @@
 
 using namespace std;
 
+void circleMaker(Circle *array, int number);
+
 int main ()
 {
 	// declare variables to create the circle
 	double circleX, circleY, circleRadius;
+	
+	int numCircle;
 	
 	cout << "First, create a circle.\n";
 	cout << "Enter the X center coordinate: ";
@@ -30,11 +34,7 @@ int main ()
 	cout << "The circle is made at " << circle1.getX() << " by " << circle1.getY() 
 		<< ", and a radius of " << circle1.getRadius() << endl;
 	cout << "The area of the circle is " << circle1.getArea() << endl;
-	
-	// compare area to calculated area
-	double localArea = circle1.getRadius() * circle1.getRadius() * 3.14;
-	cout << "The area should be " << localArea << endl;
-	
+		
 	// declare variables to get a point to test
 	double testX, testY;
 	
@@ -51,4 +51,9 @@ int main ()
 		cout << "The point is inside the circle.\n";
 	else
 		cout << "The point is outside the circle.\n";
+}
+
+void circleMaker(Circle *array, int number)
+{
+
 }
