@@ -29,6 +29,7 @@ int main ()
 	
 	cout << "The circle is made at " << circle1.getX() << " by " << circle1.getY() 
 		<< ", and a radius of " << circle1.getRadius() << endl;
+	cout << "The area of the circle is " << circle1.getArea() << endl;
 	
 	// declare variables to get a point to test
 	double testX, testY;
