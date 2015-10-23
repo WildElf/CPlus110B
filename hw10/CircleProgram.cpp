@@ -58,7 +58,8 @@ int main ()
 	}
 	
 	// display all circles created
-	cout << "Now there are " << numCircles << " circles.\n";
+	cout << "\n*******************************************\n"
+		<< "Now there are " << numCircles << " circles.\n";
 	for (int i = 0; i < numCircles; i++)
 	{
 		cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() << ", " << circleCollection[i].getY()
@@ -85,13 +86,15 @@ int main ()
 			cout << "Which circle(s) would you like to change? (enter 0 to change all): ";
 			cin >> changeNum;
 
-			// TODO update to use pointer
-			if (changeNum < 0 || changeNum > numCircles) // basic bounds checking
+			// Make sure the number is within bounds
+			if (changeNum < 0 || changeNum > numCircles)
 			{
-				cout << "That's confusing me, so we'll change them all!";
+				cout << "That's confusing me, so we'll change them all!\n";
 				changeNum = 0;
 			}
-			else if (changeNum == 0)
+			
+			// change circles according to the selection
+			if (changeNum == 0)
 				for (int i = 0; i < numCircles; i++) // loop for each circle
 				{
 					cout << "Enter the X coordinate for Circle #" << i + 1 << ": ";
@@ -127,6 +130,8 @@ int main ()
 			}
 			
 			// redisplay circles		
+			cout << "\n*******************************************\n"
+				<< "There are " << numCircles << " circles.\n";
 			for (int i = 0; i < numCircles; i++)
 			{
 				cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() << ", " << circleCollection[i].getY()
