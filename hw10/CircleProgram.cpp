@@ -180,7 +180,7 @@ int menu()
 	int menuChoice;
 	do
 	{
-		cout << "What now?\n";
+		cout << "\n***** Make a selection *****\n";
 		cout << "1. Change circle values (with pointers)\n";
 		cout << "2. Find out if a point exists in any circles\n";
 		cout << "3. Quit\n";
