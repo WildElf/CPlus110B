@@ -168,6 +168,8 @@ int main ()
 		{
 			cout << "The circle is broken. Goodbye!\n";
 			loop = false;
+			delete [] circleCollection;
+			circleCollection = NULL;
 		}
 		
 	} while (loop);
