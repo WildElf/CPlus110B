@@ -26,4 +26,5 @@ hw07/tasks
 hw09/simple-hw09.cpp
 hw01/asterisks
 *.o
-
+Output*
+output*
