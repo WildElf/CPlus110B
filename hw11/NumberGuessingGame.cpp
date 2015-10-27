@@ -6,16 +6,30 @@
 using namespace std;
 
 // Prototyped functions
-void playOneGame ();
+void playOneGame (NumberGuesser&);
 bool shouldPlayAgain ();
 char getUserResponseToGuess(NumberGuesser);
 
 /// Main program start, loop based on user choice
 int main ()
 {
+	// Establish the starting number range
+	const int LOW_RANGE = 1;
+	const int HIGH_RANGE = 100;
+
+	// build a guesser object with the range
+	NumberGuesser guessingGame(LOW_RANGE, HIGH_RANGE);
+
 	do
 	{
-		playOneGame();
+		// display the range being used for user
+		cout << "Think of a number between " << LOW_RANGE 
+			<< " and " << HIGH_RANGE << ".\n";
+
+		playOneGame(guessingGame);
+		
+		guessingGame.reset();
+
 	} while (shouldPlayAgain());
 
 	return 0;
@@ -24,21 +38,11 @@ int main ()
 /// *********************************
 /// The number guessing game function
 /// *********************************
-void playOneGame ()
+void playOneGame (NumberGuesser &guessingGame)
 {
-	// variables for input
-	int midpoint, lowpoint, highpoint;
+
+	// variable for input
 	char choice;
-
-	// Establish the starting number range
-	const int LOW_RANGE = 1;
-	const int HIGH_RANGE = 100;
-	
-	cout << "Think of a number between " << LOW_RANGE 
-		<< " and " << HIGH_RANGE << ".\n";
-
-	// build a guesser object
-	NumberGuesser guessingGame(LOW_RANGE, HIGH_RANGE);
 
 	// number guessing loop, runs at least once
 	do
@@ -55,8 +59,7 @@ void playOneGame ()
 			cout << "Witness my psychic powers!\n";
 
 	} while (choice != 'c'); // continue until 'c' for correct
-	
-	guessingGame.reset();
+
 }
 
 /// Show user the guess and get input
@@ -93,6 +96,7 @@ bool shouldPlayAgain ()
 	cout << "Do you want to play again? (y/n): ";
 	cin >> playAgain;
 
+	// normalize input, tolower() seemed less efficient
 	if (playAgain == 'y' || playAgain == 'Y')
 		return true;
 	else

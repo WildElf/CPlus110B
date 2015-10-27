@@ -13,7 +13,7 @@ class NumberGuesser
 		NumberGuesser(int, int);
 		void higher();
 		void lower();
-		int getCurrentGuess();
+		int getCurrentGuess() const;
 		void reset();
 };
 

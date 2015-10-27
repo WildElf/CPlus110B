@@ -32,7 +32,7 @@ void NumberGuesser::lower()
 }
 
 // return the midpoint between current high and low
-int NumberGuesser::getCurrentGuess()
+int NumberGuesser::getCurrentGuess() const
 {
 	return ((lowPoint + highPoint)/2);
 }
