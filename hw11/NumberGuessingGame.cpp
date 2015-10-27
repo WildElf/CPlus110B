@@ -2,17 +2,13 @@
 // Guesses a number the user is thinking of
 // with (a) class!
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
+#include "NumberGuesser.h"
 using namespace std;
 
 // Prototyped functions
 void playOneGame ();
 bool shouldPlayAgain ();
-char getUserResponseToGuess(int);
-int getMidpoint(int, int);
-int getRandomMidpoint (int, int);
-char guessMethodChoice();
+char getUserResponseToGuess(NumberGuesser);
 
 /// Main program start, loop based on user choice
 int main ()
@@ -30,122 +26,62 @@ int main ()
 /// *********************************
 void playOneGame ()
 {
-	// variables for number guessing
+	// variables for input
 	int midpoint, lowpoint, highpoint;
 	char choice;
 
-	// Establish starting number range
+	// Establish the starting number range
 	const int LOW_RANGE = 1;
 	const int HIGH_RANGE = 100;
-	lowpoint = LOW_RANGE;
-	highpoint = HIGH_RANGE;
 	
-	cout << "Think of a number between " << lowpoint 
-		<< " and " << highpoint << ".\n";
+	cout << "Think of a number between " << LOW_RANGE 
+		<< " and " << HIGH_RANGE << ".\n";
 
-	char guessMethod = guessMethodChoice();
+	// build a guesser object
+	NumberGuesser guessingGame(LOW_RANGE, HIGH_RANGE);
 
 	// number guessing loop, runs at least once
 	do
 	{
-		// because guessMethod ensures only two choices,
-		// we only need one if statement to determine which is which
-		if (guessMethod == 's')			// get a number to guess
-			midpoint = getMidpoint(lowpoint, highpoint);
-		else							// guess a random number
-			midpoint = getRandomMidpoint(lowpoint, highpoint);
-
 		// get user response to the guess
-		choice = getUserResponseToGuess(midpoint);
+		choice = getUserResponseToGuess(guessingGame);
 
 		// adjust guessing range based on user response
 		if (choice == 'h')
-			lowpoint = midpoint + 1;
+			guessingGame.higher();
 		else if (choice == 'l')
-			highpoint = midpoint - 1;
+			guessingGame.lower();
 		else if (choice == 'c')
 			cout << "Witness my psychic powers!\n";
 
 	} while (choice != 'c'); // continue until 'c' for correct
-}
-
-/// Use known highest and lowest numbers
-/// to get the midpoint for next guess
-/// **********************************
-int getMidpoint(int low, int high)
-{
-	int mid = (low + high) / 2;
-
-	return mid;
-}
-
-/// Alternative to getMidpoint,
-/// gets a random midpoint for next guess
-/// ************************************
-int getRandomMidpoint (int low, int high)
-{
-	// random number setup
-	unsigned long seed = time(0);
-	srand(seed);
-
-	int mid = (rand() % (high - low + 1)) + low;
-
-	return mid;
+	
+	guessingGame.reset();
 }
 
 /// Show user the guess and get input
 /// *********************************
-char getUserResponseToGuess(int guess)
+char getUserResponseToGuess(NumberGuesser guess)
 {
 	char choice = 0;
 
 	// ensure user enters appropriate response
 	while (choice != 'h' && choice !='l' && choice !='c')
 	{
-		cout << "Is it " << guess << "? ((h)igher/(l)ower/(c)orrect): ";
+		cout << "Is your number " << guess.getCurrentGuess() << "? ((h)igher/(l)ower/(c)orrect): ";
 		cin >> choice;
-	
-		// normalize user input
-		if (choice == 'h' || choice == 'H')
-			choice = 'h';
-		else if (choice == 'l' || choice == 'L')
-			choice = 'l';
-		else if (choice == 'c' || choice == 'C')
-			choice = 'c';
-		else
-			cout << "I don't understand what you want from me.\n"
-			<< "Enter H if your number is higher than my guess,\n"
-			<< "input L if your number is lower, and\n"
-			<< "C if I got your number.\n";
+		
+		choice = tolower(choice);
+		
+		// validate user input
+		if (choice != 'h' && choice != 'l' && choice != 'c' )
+			cout << "I don't understand what you mean.\n"
+				<< "Enter H if your number is higher than my guess,\n"
+				<< "input L if your number is lower, and\n"
+				<< "C if I got your number.\n";
 	}
 
 	return choice;
-}
-
-/// let the user pick 'default' or random guessing for extra credit
-/// *****************************************************
-char guessMethodChoice()
-{
-	char method = 'x';
-
-	
-	while (method != 's' && method != 'r')
-	{
-		cout << "Would you like me to guess (s)ystematically "
-			<< "or (r)andomly? (s/r):";
-		cin >> method;
-
-		// normalize input and set return value if valid
-		if (method == 's' || method == 'S')
-			method = 's';
-		else if (method == 'r' || method == 'R')
-			method = 'r';
-		else 
-			cout << "I'm not familiar with that guessing technique.\n";
-	}
-	
-	return method;
-
 }
 
 /// Checks to see if the user wants to repeat the game

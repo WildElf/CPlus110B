@@ -5,12 +5,16 @@
 class NumberGuesser
 {
 	private:
-		int high;
-		int low;
+		int highPoint;
+		int lowPoint;
+		int startHigh;
+		int startLow;
 	public:
-		NumberGuesser(int = 1, int = 100);
+		NumberGuesser(int, int);
 		void higher();
 		void lower();
 		int getCurrentGuess();
 		void reset();
-}
+};
+
+#endif
