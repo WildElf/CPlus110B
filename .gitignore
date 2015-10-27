@@ -28,3 +28,5 @@ hw01/asterisks
 *.o
 Output*
 output*
+*.bak
+
