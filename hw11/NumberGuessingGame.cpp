@@ -56,7 +56,7 @@ void playOneGame (NumberGuesser &guessingGame)
 		else if (choice == 'l')
 			guessingGame.lower();
 		else if (choice == 'c')
-			cout << "Witness my psychic powers!\n";
+			cout << "Witness my psychic methods!\n";
 
 	} while (choice != 'c'); // continue until 'c' for correct
 
