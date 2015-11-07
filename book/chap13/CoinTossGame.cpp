@@ -5,13 +5,28 @@
 
 using namespace std;
 
+int flip(string&, string&, string&);
+
 int main()
+{
+	int cents = 0;
+	double dollar = (float)cents;
+	string coin1, coin2, coin3;
+	
+	cents = flip(coin1, coin2, coin3);
+		
+	if (cents == 100)
+		cout << "Winner!\n";
+	else
+		cout << "Bust.\n";
+}
+
+int flip(string &coin25, string &coin10, string &coin5)
 {
 	Coin quarter, dime, nickle;
 	int cents = 0;
 	double dollar = (float)cents;
-	string coin25, coin10, coin5;
-		
+
 	while (dollar < 1.00)
 	{
 		cout << "Flip!\n";
@@ -42,8 +57,6 @@ int main()
 		
 	}
 	
-	if (cents == 100)
-		cout << "Winner!\n";
-	else
-		cout << "Bust.\n";
+	return cents;
+	
 }
