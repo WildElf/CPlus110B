@@ -62,7 +62,8 @@ int main ()
 		<< "Now there are " << numCircles << " circles.\n";
 	for (int i = 0; i < numCircles; i++)
 	{
-		cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() << ", " << circleCollection[i].getY()
+		cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() 
+			<< ", " << circleCollection[i].getY()
 			<< ") with a radius of " << circleCollection[i].getRadius() 
 			<< " and an area of " << circleCollection[i].getArea() << endl;
 	}
@@ -134,7 +135,8 @@ int main ()
 				<< "There are " << numCircles << " circles.\n";
 			for (int i = 0; i < numCircles; i++)
 			{
-				cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() << ", " << circleCollection[i].getY()
+				cout << "Circle #" << i + 1 << " is at (" << circleCollection[i].getX() 
+					<< ", " << circleCollection[i].getY()
 					<< ") with a radius of " << circleCollection[i].getRadius() 
 					<< " and an area of " << circleCollection[i].getArea() << endl;
 			}
