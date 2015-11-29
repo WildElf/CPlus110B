@@ -69,7 +69,17 @@ void testHitMethods() {
 	if (s1.hitCount() != 1) cout << "Problem: hitCount 1" << endl;	
 	if (s1.isSunk()) cout << "Problem with isSunk 1" << endl;
 
-	// Further testing required
+	// Further testing
+	p.setX(1);
+	s1.shotFiredAtPoint(p);
+	if (s1.hitCount() != 2) cout << "Problem: hitCount 2" << endl;	
+	if (s1.isSunk()) cout << "Problem with isSunk 3" << endl;
+
+	p.setX(2);
+	s1.shotFiredAtPoint(p);
+	if (s1.hitCount() != 3) cout << "Problem: hitCount 3" << endl;	
+	if (!s1.isSunk()) cout << "Problem with isSunk 3" << endl;
+	
 }
 
 int main() {

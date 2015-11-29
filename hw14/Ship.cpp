@@ -2,7 +2,7 @@
 //  Ship.cpp
 //  Battleship
 //
-
+//#include "PointCollection.h"
 #include "Ship.h"
 #include <iostream>
 
@@ -29,16 +29,16 @@ Ship::Ship(point originPoint, direction o, int l)
 	length = l;
 				
 	// then translate the direction, advance direction and store
-	// keeping origin as constant, originPoint is available for utility
+	// keeping origin unchanged, originPoint is available for utility
 	if ( o == HORIZONTAL )
 		for (int i=0; i<l; i++) {
 			originPoint.setX(origin.getX() + i);
-			points[i] = originPoint;
+			points << originPoint;
 		}
 	else
-		for (int i=1; i<l; i++) {
+		for (int i=0; i<l; i++) {
 			originPoint.setY(origin.getY() + i);
-			points[i] = originPoint;
+			points << originPoint;
 		}
 
 
@@ -59,21 +59,8 @@ Ship::Ship(const Ship& s)
 
 bool Ship::containsPoint(const point& p) const
 {   
-	std::cout << "P contains: " << points.contains(p) << "\n";
 	if (points.contains(p))
-		std::cout << "Method search found p\n";
-	else
-		std::cout << "Method search did not find p\n";				
-		
-	for (int i=0; i<length; i++) {
-		if (points[i] == p)
-		{
-			std::cout << "Manual search found p\n";
 			return true;
-		}
-
-	}
-	std::cout << "Manual search did not find p\n";			
 
 	return false;
 }
@@ -101,10 +88,7 @@ bool Ship::collidesWith(const Ship& s) const
 void Ship::shotFiredAtPoint(const point& p)
 {
 	if (points.contains(p))
-	{
 		hits << p;
-		std::cout << "Hit!\n";
-	}
 }
 
 //*******************************************************************************************
@@ -113,8 +97,7 @@ void Ship::shotFiredAtPoint(const point& p)
 
 bool Ship::isHitAtPoint(const point& p)
 {
-	for (int i=0; i<length; i++)
-		if (hits[i] == p)
+	if (hits.contains(p))
 			return true;
 
 	return false;
@@ -126,8 +109,6 @@ bool Ship::isHitAtPoint(const point& p)
 
 int Ship::hitCount() const
 {
-	std::cout << "Hits size: " << hits.getSize() << "\n";
-	// why aren't method calls working for PointCollection?
 	return hits.getSize();
 }
 
@@ -141,10 +122,8 @@ const Ship& Ship::operator=(const Ship& s)
 	orientation = s.orientation;
 	origin = s.origin;
 	
-	for (int i=0; i<length; i++) {
-		points[i] = s.points[i];
-		hits[i] = s.hits[i];
-	}
+	points = s.points;
+	hits = s.hits;
 	
 	return *this;
 }

@@ -42,8 +42,7 @@ PointCollection::~PointCollection()
 
 void PointCollection::add(const point &p)
 {
-	std::cout << "I'm in add, to add " << p.getX() << ", " << p.geY() << std::endl;
-
+//	std::cout << "I'm in add, adding " << p.getX() << ", " << p.getY() << " to index " << size;
     // Check to see if we need more space
     if (size == capacity)
     {
@@ -53,9 +52,8 @@ void PointCollection::add(const point &p)
     // Add the new value
     data[size] = p;
     size++;
-    
-	std::cout << "I'm in add, size = " << size << std::endl;
 
+//    std::cout << " - added, size is now " << size << "\n";
 }
 
 //***************************************************************************
@@ -73,7 +71,6 @@ point& PointCollection::get(int index) const
 
 int PointCollection::getSize() const
 {
-//	std::cout << "I'm in getSize() = " << size << std::endl;
     return size;
 }
 
@@ -83,18 +80,13 @@ int PointCollection::getSize() const
 
 bool PointCollection::contains(const point &p) const
 {
-  	std::cout << "I'm in contains, size = " << size << "  ";
-   	std::cout << "p: " << p.getX() << ", " << p.getY() << " and getSize()" << getSize() << std::endl;
-
+    
     for (int i = 0; i < getSize(); i++) {
         if (get(i) == p) {
             return true;
         }
     }
     
-   	std::cout << "I'm in contains, size = " << size << "  ";
-   	std::cout << "p: " << p.getX() << ", " << p.getY() << " and getSize()" << getSize() << std::endl;
-
     return false;
 }
 
@@ -105,7 +97,6 @@ bool PointCollection::contains(const point &p) const
 PointCollection& PointCollection::operator<<(const point &p)
 {
     this->add(p);
-    std::cout << this << " is now size " << size << "\n";
     return *this;
 }
 
