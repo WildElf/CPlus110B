@@ -17,7 +17,7 @@ class GradedActivity
 			{ score = s; } 
 		double getScore() 
 			{ return score; } 
-		char getLetterGrade() const; 
+		virtual char getLetterGrade() const; 
 
 };
 
