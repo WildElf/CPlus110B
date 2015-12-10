@@ -30,3 +30,5 @@ Output*
 output*
 *.bak
 
+*.txt
+*.prog
