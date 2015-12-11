@@ -27,16 +27,16 @@ Ship::Ship(point originPoint, direction o, int l)
 	origin = originPoint;
 	orientation = o;
 	length = l;
-				
+	
 	// then translate the direction, advance direction and store
 	// keeping origin unchanged, originPoint is available for utility
 	if ( o == HORIZONTAL )
-		for (int i=0; i<l; i++) {
+		for (int i=0; i<length; i++) {
 			originPoint.setX(origin.getX() + i);
 			points << originPoint;
 		}
 	else
-		for (int i=0; i<l; i++) {
+		for (int i=0; i<length; i++) {
 			originPoint.setY(origin.getY() + i);
 			points << originPoint;
 		}
@@ -60,9 +60,9 @@ Ship::Ship(const Ship& s)
 bool Ship::containsPoint(const point& p) const
 {   
 	if (points.contains(p))
-			return true;
-
-	return false;
+		return true;
+	else
+		return false;
 }
 
 //*******************************************************************************************
@@ -71,14 +71,18 @@ bool Ship::containsPoint(const point& p) const
 
 bool Ship::collidesWith(const Ship& s) const
 {
-	for (int i=0; i<length; i++) {
-		for (int j=0; j<s.length; j++) {
-			if (points[i] == s.points[j])
-				return true;
-			}
+	
+	bool collision = false;
+	
+	for (int i=0; i<length; i++) 
+	{
+		if (s.containsPoint(points[i]))
+		{
+			collision = true;
+		}
 	}
 
-	return false;
+	return collision;
 }
 
 //*******************************************************************************************
@@ -88,7 +92,9 @@ bool Ship::collidesWith(const Ship& s) const
 void Ship::shotFiredAtPoint(const point& p)
 {
 	if (points.contains(p))
+	{
 		hits << p;
+	}
 }
 
 //*******************************************************************************************
@@ -98,9 +104,9 @@ void Ship::shotFiredAtPoint(const point& p)
 bool Ship::isHitAtPoint(const point& p)
 {
 	if (hits.contains(p))
-			return true;
-
-	return false;
+		return true;
+	else
+		return false;
 }
 
 //*******************************************************************************************
@@ -118,6 +124,7 @@ int Ship::hitCount() const
 
 const Ship& Ship::operator=(const Ship& s)
 {
+
 	length = s.length;
 	orientation = s.orientation;
 	origin = s.origin;
@@ -140,7 +147,6 @@ bool Ship::isSunk()
 	else
 		return false;	
 }
-
 
 
 

@@ -1,95 +1,108 @@
-
+// week 16, Battleship Part II: Not the Movie
+// execute a 1-player battleship game, with computer opponent
+// using multiple classes
 #include "PointCollection.h"
 #include "Ship.h"
+#include "Board.h"
 #include <iostream>
+#include <string>
+#include <cstring>
+#include <cctype>
 
 using namespace std;
 
-void testContains(const Ship &s, int x, int y, bool desiredResult, int num) {
-	point p(x, y);
+bool playGame();
+bool validString(string);
 
-	if (s.containsPoint(p) != desiredResult) 
-		cout << "Problem with contains test " << num << endl;
+int main() 
+{
+	// simple replay loop based on user choice
+	while(playGame());
 }
 
-void testThreeArgConstructorAndContainsPoint() {
-	point origin(0, 0);
-	Ship s1(origin, HORIZONTAL, 3);
-	Ship s2(origin, VERTICAL, 4);
-
-	testContains(s1, 0, 0, true, 0);
-	testContains(s1, 1, 0, true, 1);
-	testContains(s1, 2, 0, true, 2);
-	testContains(s1, 3, 0, false, 3);
-	testContains(s2, 0, 0, true, 4);
-	testContains(s2, 0, 1, true, 5);
-	testContains(s2, 0, 2, true, 6);
-	testContains(s2, 0, 3, true, 7);
-	testContains(s2, 0, 4, false, 8);
-	testContains(s2, 1, 1, false, 9);
-	testContains(s1, -1, 0, false, 10);
-	testContains(s2, 0, -1, false, 11);
-
-}
-
-void testCopyAssignmentAndConstructor() {
-	point origin(0, 0);
-	Ship s1(origin, HORIZONTAL, 3);
-	Ship s2(s1);
-
-	testContains(s2, 0, 0, true, 20);
-	testContains(s2, 1, 0, true, 21);
-	testContains(s2, 2, 0, true, 22);
-	testContains(s2, 3, 0, false, 23);
-}
-
-void testCollidesWith() {
-	point origin(0, 0);
-
-	Ship s1(origin, HORIZONTAL, 3);
-	Ship collisionShip(origin, VERTICAL, 4);
-
-	if (!s1.collidesWith(collisionShip)) 
-		cout << "problem with collides with 1" << endl;
-
-	point oneOne(1, 1);
-	Ship noCollisionShip(oneOne, HORIZONTAL, 3);
-
-	if (s1.collidesWith(noCollisionShip))
-		cout << "problem with collides with 2" << endl;
-}
-
-void testHitMethods() {
-	point origin(0, 0);
-	Ship s1(origin, HORIZONTAL, 3);
-
-	point p = origin;
-
-	s1.shotFiredAtPoint(p);
-	if (s1.hitCount() != 1) cout << "Problem: hitCount 1" << endl;	
-	if (s1.isSunk()) cout << "Problem with isSunk 1" << endl;
-
-	// Further testing
-	p.setX(1);
-	s1.shotFiredAtPoint(p);
-	if (s1.hitCount() != 2) cout << "Problem: hitCount 2" << endl;	
-	if (s1.isSunk()) cout << "Problem with isSunk 3" << endl;
-
-	p.setX(2);
-	s1.shotFiredAtPoint(p);
-	if (s1.hitCount() != 3) cout << "Problem: hitCount 3" << endl;	
-	if (!s1.isSunk()) cout << "Problem with isSunk 3" << endl;
+bool playGame()
+{
+	Board gameBoard;
+	string target;
 	
+	// the main game loop, continues while both sides have ships
+	while (gameBoard.unsunkShipCount() > 0 && gameBoard.unsunkPlayerCount() > 0)
+	{
+		// compare variable for changes in sunk ships
+		int playerSunk = gameBoard.unsunkShipCount();
+		int computerSunk = gameBoard.unsunkPlayerCount();
+		
+		// player target holding variables
+		int x, y;
+		
+		// draw the board then ask for coordinates
+		gameBoard.display();
+		cout << "Enter coordinates to strike (X Y)\n";
+		getline(cin, target);
+		
+		do
+		{
+			// validate the string entered
+			if (validString(target))
+			{
+				x = atoi(&target[0]);
+				y = atoi(&target[2]);
+
+				if(gameBoard.fireShot(x, y))
+				{
+					cout << "Hit!\n";
+				
+					// check if the hit was also a sink
+					if (playerSunk > gameBoard.unsunkShipCount())
+						cout << "You sank the ship!\n";
+				}
+				else
+					cout << "Better luck next time.\n";
+			}
+			else
+				cout << "Invalid format. Enter X Y coordinates with a space in between, e.g.: 5 5\n";
+				
+			
+		} while (!validString(target));
+					
+		cout << "********** Computer's Turn **********\n";
+		cout << "Computer is taking a turn...\n";
+			
+		if (gameBoard.computerFireShot())
+		{
+			cout << "The computer hit!\n";
+			
+			if (computerSunk > gameBoard.unsunkPlayerCount())
+				cout << "Your ship was sunk!\n";
+		}
+		else
+			cout << "And missed. Your ships are safe, for now...\n";
+	}
+	
+	if (gameBoard.unsunkShipCount() == 0)
+		cout << "You win! You sunk the computer's last ship.";
+	else if (gameBoard.unsunkPlayerCount() == 0)
+		cout << "The computer has destroyed your fleet. You lost.";
+	
+	// asking for another game
+	bool playAgain = false;
+	string answer;
+	
+	cout << "Do you want to play again? (y/n)";
+	getline(cin, answer);
+	
+	if (tolower(answer[0]) == 'y')
+		playAgain = true;
+	
+	return playAgain;
 }
 
-int main() {
-	testHitMethods();
-	testCollidesWith();
-	testCopyAssignmentAndConstructor();
-	testThreeArgConstructorAndContainsPoint();
+bool validString(string s)
+{	
+	if (isdigit(s[0]) && isdigit(s[2]))
+		return true;
+	else
+		return false;
 }
-
-
-
 
 

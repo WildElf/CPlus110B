@@ -18,7 +18,7 @@ class Ship
     int length;
     direction orientation;
     point origin;
-    
+
     PointCollection points;
     PointCollection hits;
     
