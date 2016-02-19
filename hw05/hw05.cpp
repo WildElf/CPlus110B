@@ -5,9 +5,9 @@
 using namespace std;
 
 // function prototypes
-void initializeArrays (string n[], int s[], int);
-void sortData (string n[], int s[], int);
-void displayData (string n[], int s[], int);
+void initializeArrays (string n[], int w[], int);
+void sortData (string n[], int w[], int);
+void displayData (string n[], int w[], int);
 
 // **************************
 // Main function
@@ -28,7 +28,7 @@ int main()
 
 // get teams and wins from user
 // ****************************
-void initializeArrays(string n[], int s[], int size)
+void initializeArrays(string n[], int w[], int size)
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -36,7 +36,7 @@ void initializeArrays(string n[], int s[], int size)
 		cin >> n[i];
 		
 		cout << "Enter Team #" << i + 1 << "'s number of wins: ";
-		cin >> s[i];
+		cin >> w[i];
 				 
 	}
 	
@@ -44,7 +44,7 @@ void initializeArrays(string n[], int s[], int size)
 
 // sort winners to the top
 // **************************
-void sortData(string n[], int s[], int size)
+void sortData(string n[], int w[], int size)
 {
 	// variables for sorting logic
 	bool sorted = false;
@@ -56,18 +56,18 @@ void sortData(string n[], int s[], int size)
 		skipped = 0;
 		for (int i = 1; i < size; i++)
 		{
-			if (s[i-1] < s[i])
+			if (w[i] > w[i-1])
 			{
 				// remember current elements
-				winHold = s[i];
+				winHold = w[i];
 				teamHold = n[i];
 				
 				// copy earlier elements into current
-				s[i] = s[i-1];
-				n[1] = n[i-1];
+				w[i] = w[i-1];
+				n[i] = n[i-1];
 				
 				// place original elements in new positions
-				s[i-1] = winHold;
+				w[i-1] = winHold;
 				n[i-1] = teamHold;
 				
 			}
@@ -82,51 +82,32 @@ void sortData(string n[], int s[], int size)
 
 // display the teams and wins
 // **************************
-void displayData(string n[], int s[], int size)
+void displayData(string n[], int w[], int size)
 {
 	cout << "League Standings\n";
 
 	for (int i = 0; i < size; i++)
 	{
-		cout << n[i] << " wins: " << s[i] << endl;
+		cout << n[i] << " wins: " << w[i] << endl;
 		
 	}
 }
 
-/*
-Silica:desktop ez$ a.out 
-Enter Team #1: Bats
-Enter Team #1's number of wins: 79
-Enter Team #2: Gravies
-Enter Team #2's number of wins: 88
-Enter Team #3: Skunks
-Enter Team #3's number of wins: 67 
-Enter Team #4: Turkeys
-Enter Team #4's number of wins: 99
-Enter Team #5: Cranberries
-Enter Team #5's number of wins: 120
-League Standings
-Cranberries wins: 120
-Turkeys wins: 99
-Cranberries wins: 88
-Cranberries wins: 79
-Cranberries wins: 67
-Silica:desktop ez$ a.out 
+/* Sample output
 Enter Team #1: Waiters
-Enter Team #1's number of wins: 34
-Enter Team #2: Stewards
-Enter Team #2's number of wins: 32
-Enter Team #3: Bellhops
-Enter Team #3's number of wins: 65
-Enter Team #4: Chauffers
-Enter Team #4's number of wins: 45
-Enter Team #5: Maids
-Enter Team #5's number of wins: 62
+Enter Team #1's number of wins: 32
+Enter Team #2: Bellhops
+Enter Team #2's number of wins: 35
+Enter Team #3: Stewards
+Enter Team #3's number of wins: 29
+Enter Team #4: Maids
+Enter Team #4's number of wins: 42
+Enter Team #5: Footmen
+Enter Team #5's number of wins: 30
 League Standings
-Chauffers wins: 65
-Maids wins: 62
-Maids wins: 45
-Maids wins: 34
-Maids wins: 32
-Silica:desktop ez$ 
+Maids wins: 42
+Bellhops wins: 35
+Waiters wins: 32
+Footmen wins: 30
+Stewards wins: 29
 */
